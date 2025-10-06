@@ -29,6 +29,9 @@ public class ClienteDAO implements iClienteDAO {
                 cliente.setMembresia(rs.getInt("membresias"));
                 clientes.add(cliente);
             }
+            for(Cliente c: clientes){
+                System.out.println(c);
+            }
         }catch (Exception e){
             System.out.println("Error al listar clientes: " + e.getMessage() );
         }finally {
@@ -157,45 +160,5 @@ public class ClienteDAO implements iClienteDAO {
 
 
         return false;
-    }
-
-    public static void main(String[] args) {
-        //Listar clientes
-
-        ClienteDAO clienteDAO = new ClienteDAO();
-       List<Cliente> clientes = clienteDAO.listarCliente();
-       clientes.forEach(System.out::println);
-
-       //Buscar Cliente
-
-       Cliente c1 = new Cliente(2);
-        System.out.println("Clientes antes de la busqueda: " + c1);
-       boolean encontrado = clienteDAO.buscarClientePorId(c1);
-       if(encontrado){
-           System.out.println("encontrado");
-           System.out.println(c1);
-       }
-
-       //Agregar cliente
-        Cliente c2 = new Cliente("Andrea", "Arroyo", 102);
-        boolean insertado = clienteDAO.agregarCliente(c2);
-        if(insertado){
-            System.out.println("insertado correcto" + c2);
-        }
-
-        //modificar un usario
-        Cliente c3 = new Cliente(2,"Diana","Castillo", 103);
-        boolean modificado = clienteDAO.modificarCliente(c3);
-        if(modificado){
-            System.out.println("modificacion exitosa " + c3 );
-        }
-
-        //Eliminar usando C3 de cliente
-        boolean eliminado = clienteDAO.eliminarCliente(c3);
-        if(eliminado){
-            System.out.println("Eliminado con exito");
-        }
-
-
     }
 }
