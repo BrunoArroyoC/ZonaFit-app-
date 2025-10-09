@@ -2,7 +2,7 @@ package zona_fit.datos;
 import zona_fit.dominio.Cliente;
 import java.util.List;
 
-public interface iClienteDAO {
+public interface IClienteDAO {
     List<Cliente> listarCliente();
     boolean buscarClientePorId(Cliente cliente);
     boolean agregarCliente(Cliente cliente);

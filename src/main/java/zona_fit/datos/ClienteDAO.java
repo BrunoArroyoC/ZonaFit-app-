@@ -1,5 +1,4 @@
 package zona_fit.datos;
-import zona_fit.conexion.Conexion;
 import zona_fit.dominio.Cliente;
 
 import java.sql.Connection;
@@ -9,7 +8,7 @@ import java.util.*;
 
 import static zona_fit.conexion.Conexion.getConexion;
 
-public class ClienteDAO implements iClienteDAO {
+public class ClienteDAO implements IClienteDAO {
 
     @Override
     public List<Cliente> listarCliente() {
@@ -29,9 +28,7 @@ public class ClienteDAO implements iClienteDAO {
                 cliente.setMembresia(rs.getInt("membresias"));
                 clientes.add(cliente);
             }
-            for(Cliente c: clientes){
-                System.out.println(c);
-            }
+
         }catch (Exception e){
             System.out.println("Error al listar clientes: " + e.getMessage() );
         }finally {
