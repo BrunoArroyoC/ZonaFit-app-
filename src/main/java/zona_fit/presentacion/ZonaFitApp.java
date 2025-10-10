@@ -56,11 +56,14 @@ public class ZonaFitApp {
                 5. Eliminar Cliente
                 6. Salir
                 """);
-        int op = validacion_Opciones("Elije tu opcion deaseada: ",Integer.class); //Validacion
-        if(op> 6){
-            System.out.println("Opcion invalida");
+        int op;
+        while(true) {
+            op = validacion_Opciones("Elige tu opción deseada: ", Integer.class);
+            if(op >= 1 && op <= 6) {
+                return op;  // ← Solo retorna si es válido
+            }
+            System.out.println("Opción inválida. Debes ingresar un número entre 1 y 6\n");
         }
-        return op;
     }
 
 
@@ -126,47 +129,44 @@ public class ZonaFitApp {
 
     public static void modificarClienteMenu(){
         int idModificar = validacion_Opciones("Ingresa el id del cliente que quieres modificar: ", Integer.class);
-        String nombre = validacion_Opciones("Ingresa el nombre del cliente: ", String.class);
-        String apellido = validacion_Opciones("Ingresa el apellido del cliente: ",String.class);
-        int membresia = validacion_Opciones("Ingresa la membresia del cliente: ", Integer.class);
 
         Cliente cliente_Aux = new Cliente(idModificar);
         boolean flag = cliente.buscarClientePorId(cliente_Aux);
         if(flag){
+            System.out.println("Cliente encontrado");
+            System.out.println(cliente_Aux);
+            String nombre = validacion_Opciones("Ingresa el nombre del cliente: ", String.class);
+            String apellido = validacion_Opciones("Ingresa el apellido del cliente: ",String.class);
+            int membresia = validacion_Opciones("Ingresa la membresia del cliente: ", Integer.class);
+
             Cliente clienteAux = new Cliente(idModificar,nombre,apellido,membresia);
             boolean modificado = cliente.modificarCliente(clienteAux);
             System.out.println("Modificacion con exito");
         }else{
             System.out.println("Cliente no encontrado");
+
         }
 
     }
 
     public static void eliminarClienteMenu(){
-        int idEliminar = validacion_Opciones("Ingresa el id del cliente que quieres eliminar", Integer.class);
+        int idEliminar = validacion_Opciones("Ingresa el id del cliente que quieres eliminar: ", Integer.class);
 
         Cliente cliente_Aux = new Cliente(idEliminar);
         boolean flag = cliente.buscarClientePorId(cliente_Aux);
         if(flag){
-            Cliente clienteAux = new Cliente(idEliminar);
-            boolean eliminado = cliente.eliminarCliente(clienteAux);
-            System.out.println("Eliminado con exito");
+            String confirmacion = validacion_Opciones("Estas seguro de eliminar si/no: ",String.class);
+            if(confirmacion.equalsIgnoreCase("si")) {
+                Cliente clienteAux = new Cliente(idEliminar);
+                boolean eliminado = cliente.eliminarCliente(clienteAux);
+                System.out.println("Eliminado con exito");
+            }else{
+                System.out.println("eliminacion cancelada");
+                return;
+            }
         }else{
             System.out.println("Cliente no encontrado");
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
